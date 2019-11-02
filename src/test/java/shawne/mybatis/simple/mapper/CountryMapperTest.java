@@ -41,4 +41,22 @@ public class CountryMapperTest {
             sqlSession.close();
         }
     }
+
+    @Test
+    public void testInterfaceSelectAll() {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            List<Country> countries = mapper.selectAll();
+            countries.forEach(System.out::println);
+        }
+    }
+
+    @Test
+    public void testAnnotationSelect(){
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            List<Country> countries = mapper.selectLimit(0,2);
+            countries.forEach(System.out::println);
+        }
+    }
 }
